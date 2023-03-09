@@ -1,0 +1,41 @@
+# Use Case:
+# As a developer I want issues and PRs that have had no activity for a specified amount of time to be automatically closed
+# so I do not have to triage old issues and PRs. 
+#
+# You can adjust the behavior by modifying this file.
+# For more information, see:
+# https://github.com/actions/stale
+name: stale
+
+on:
+  schedule:
+  - cron: '22 8 * * *'
+  workflow_dispatch:
+    inputs: {}
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+    - uses: actions/stale@v5
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        stale-pr-message: >
+          This pull request has been automatically marked as stale because it has not had
+          recent activity. It will be closed in 5 days if no further activity occurs. Thank you
+          for your contributions.
+        stale-issue-message: >
+          This issue has been automatically marked as stale because it has been open for 30 days
+          with no response from the author. It will be closed in next 7 days if no further
+          activity occurs from the issue author.
+        close-issue-message: >
+          This issue has been closed because it has not received response from the issue author.
+        days-before-pr-stale: 45
+        days-before-pr-close: 5
+        exempt-pr-labels: 'pinned,security'
+        only-issue-labels: 'pending-response'
+        days-before-issue-stale: 30
+        days-before-issue-close: 7

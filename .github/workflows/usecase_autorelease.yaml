@@ -42,7 +42,7 @@ jobs:
               [
                 "@semantic-release/exec",
                 {
-                  "prepareCmd": "echo \"${nextRelease.version}\" > VERSION; git add VERSION; mkdir -p release; cp VERSION release/VERSION"
+                  "prepareCmd": "echo \"\${nextRelease.version}\" > VERSION; git add VERSION; mkdir -p release; cp VERSION release/VERSION"
                 }
               ],
               [
